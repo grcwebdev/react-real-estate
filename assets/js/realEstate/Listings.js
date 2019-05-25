@@ -6,6 +6,55 @@ import React, { Component} from 'react'
     this.state = {
       name: 'Joe'
     }
+    this.loopListings = this.loopListings.bind(this)
+  }
+
+  loopListings () {
+    let {listingsData} = this.props
+
+    if(listingsData == undefined || listingsData.length == 0) {
+      return "Sorry your filter did not match any listing"
+    }
+
+    return listingsData.map((listing, index) => {
+      return (
+        <div className="listing-col" key={index}>
+          <div className="listing">
+          <div className="listing-img" style={{background: `url("${listing.image}") no-repeat center center`}}>
+            <span className="address">{listing.address}</span>
+          <div className="details">
+            <div className="left-col">
+              <div className="user-img"></div>
+            </div>
+            <div className="right-col">
+              <div className="user-details">
+                <span className="user-name">{listing.agent}</span>
+                <span className="posted-date">Posted on {listing.postedDate}</span>
+              </div>
+              <div className="listing-details">
+                <div className="floor-space">
+                  <i className="far fa-square" aria-hidden="true" />
+                  <span>{listing.floorSpace} ft&sup2;</span>
+                </div>
+                <div className="bedrooms">
+                  <i className="fas fa-bed" aria-hidden="true" />
+                  <span>{listing.bedrooms} bedrooms</span>
+                </div>
+              </div>
+              <div className="view-btn">
+                View Listing
+              </div>
+            </div>
+          </div>
+        </div>
+          <div className="bottom-info">
+            <span className="price">${listing.price} / month</span>
+            <span className="location"><i className="fas fa-map-marker-alt" />{listing.city}, {listing.state}</span>
+          </div>
+        </div>
+        </div>
+      )
+    })
   }
   
   render () {
@@ -20,7 +69,7 @@ import React, { Component} from 'react'
           <div className="sort-options">
             <select name="sortby" className="sortby">
               <option value="highest-price">Highest Price</option>
-              <option vlaue="lowest-price">Lowest Price</option>
+              <option value="lowest-price">Lowest Price</option>
             </select>
             <div className="view">
               <i className="fas fa-th-list" aria-hidden="true" />
@@ -30,39 +79,14 @@ import React, { Component} from 'react'
         </section>
 
         <section className="listing-results">
-          <div className="listing">
-            <div className="listing-img">
-              <span className="address">Address</span>
-              <div className="details">
-                <div className="user-img"></div>
-                <div className="user-details">
-                  <span className="user-name">Nina Smith</span>
-                  <span className="posted-date">Posted on 05/09/17</span>
-                </div>
-                <div className="listing-details">
-                  <div className="floor-space">
-                    <i className="far fa-square" aria-hidden="true" />
-                    <span> 1000 ft&sup2;</span>
-                  </div>
-                  <div className="bedrooms">
-                    <i className="fa fa-bed" aria-hidden="true" />
-                    <span> 3 bedrooms</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bottom-info">
-              <span>$1000 / mo.</span>
-              <span><i className="fas fa-map-marker-alt" />Ridgewood NY</span>
-            </div>
-          </div>
+          {this.loopListings()}
         </section>
 
         <section className="pagination">
-          <ul className="pagination-nums">
+          <ul className="pages">
             <li>Prev</li>
             <li>1</li>
-            <li>2</li>
+            <li className="active">2</li>
             <li>3</li>
             <li>4</li>
             <li>5</li>

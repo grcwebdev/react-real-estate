@@ -13,50 +13,66 @@ import React, { Component} from 'react'
       <section id="filter">
         <div className="inside">
         <h4>Filter</h4>
-        <select name="neighborhood" className="filters neighborhood">
-          <option>Ridgewood</option>
+        <label htmlFor="city">City</label>
+        <select name="city" className="filters city" onChange={this.props.change}>
+          <option value="All">Any City</option>
+          <option value="Ridgewood">Ridgewood</option>
+          <option value="Clifton">Clifton</option>
+          <option value="Denver">Denver</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Miami">Miami</option>
+          <option value="Dallas">Dallas</option>
+          <option value="Austin">Austin</option>
         </select>
-        <select name="housetype" className=" filters housetype">
-          <option>Ranch</option>
+        <label htmlFor="homeType">Home Type</label>
+        <select name="homeType" className=" filters homeType" onChange={this.props.change}>
+          <option value="All">Any Home Type</option>
+          <option value="Apartment">Apartment</option>
+          <option value="Condo">Condo</option>
+          <option value="Ranch">Ranch</option>
         </select>
-        <select name="bedrooms" className="filters bedrooms">
-          <option>2 BR</option>
+        <label htmlFor="bedrooms">Bed Rooms</label>
+        <select name="bedrooms" className="filters bedrooms" onChange={this.props.change}>
+          <option value="0">0+ BR</option>
+          <option value="1">1+ BR</option>
+          <option value="2">2+ BR</option>
+          <option value="3">3+ BR</option>
         </select>
         <div className="filters price">
           <span className="title">Price</span>
-          <input type="text" name="min-price" className="min-price" />
-          <input type="text" name="max-price" className="max-price" />
+          <input type="text" name="min_price" value={this.props.globalState.min_price} className="min-price" onChange={this.props.change} />
+          <input type="text" name="max_price" value={this.props.globalState.max_price} className="max-price" onChange={this.props.change} />
         </div>
         <div className="filters floor-space">
           <span className="title">Floor Space</span>
-          <input type="text" name="min-floor-space" className="min-floor-space" />
-          <input type="text" name="max-floor-space" className="max-floor-space" />
+          <input type="text" name="min_floor_space" value={this.props.globalState.min_floor_space} className="min-floor-space" onChange={this.props.change} />
+          <input type="text" name="max_floor_space" value={this.props.globalState.max_floor_space} className="max-floor-space" onChange={this.props.change} />
         </div>
         <div className="filters amenities">
           <span className="title">Amenities</span>
-          <label for="amenities">
+          <label htmlFor="amenities">
             <span>Elevators</span>
-            <input name="amenities" value="elevator" type="checkbox" />
+            <input name="elevator" value="elevator" type="checkbox" onChange={this.props.change} />
           </label>
-          <label for="amenities">
+          <label htmlFor="amenities">
             <span>Storage</span>
-            <input name="amenities" value="storage" type="checkbox" />
+            <input name="storage" value="storage" type="checkbox" onChange={this.props.change} />
           </label>
-          <label for="amenities">
+          <label htmlFor="amenities">
             <span>Bath tub</span>
-            <input name="amenities" value="bath-tub" type="checkbox" />
+            <input name="bath_tub" value="bath_tub" type="checkbox" onChange={this.props.change} />
           </label>
-          <label for="amenities">
+          <label htmlFor="amenities">
             <span>Seperate shower</span>
-            <input name="amenities" value="seperate-shower" type="checkbox" />
+            <input name="seperate_shower" value="seperate_shower" type="checkbox" onChange={this.props.change} />
           </label>
-          <label for="amenities">
+          <label htmlFor="amenities">
             <span>Fireplace</span>
-            <input name="amenities" value="fireplace" type="checkbox" />
+            <input name="fireplace" value="fireplace" type="checkbox" onChange={this.props.change} />
           </label>
-          <label for="amenities">
+          <label htmlFor="amenities">
             <span>Swimming pool</span>
-            <input name="amenities" value="swimming-pool" type="checkbox" />
+            <input name="swimming_pool" value="swimming_pool" type="checkbox" onChange={this.props.change} />
           </label>
         </div>
         </div>
