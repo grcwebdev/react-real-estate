@@ -113,6 +113,12 @@
                 .fas {
                     margin-right: 15px;
                     font-size: 1.5rem;
+                    transition: all .3s ease-in-out;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: $pink;
+                    }
                 }
             }
         }
@@ -126,6 +132,10 @@
             display: inline-block;
             vertical-align: top;
             padding: 0 15px;
+
+            &.list {
+                width: 100%;
+            }
 
             .listing {
                 background: #fff;
@@ -321,7 +331,9 @@
     }
 
     .pagination {
+        width: 100%;
         text-align: center;
+        display: block;
 
         .pages {
             display: inline-block;

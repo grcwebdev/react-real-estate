@@ -6,6 +6,50 @@ import React, { Component} from 'react'
     this.state = {
       name: 'Joe'
     }
+
+    this.cities = this.cities.bind(this)
+    this.homeTypes = this.homeTypes.bind(this)
+    this.bedrooms = this.bedrooms.bind(this)
+  }
+
+  componentWillMount() {
+    this.props.populateAction()
+  }
+
+  cities() {
+    if(this.props.globalState.populateFormsData.cities != undefined) {
+      var { cities } = this.props.globalState.populateFormsData
+
+      return cities.map((item) => {
+        return(
+          <option key={item} value={item}>{item}</option>
+        )
+      })
+    }
+  }
+
+  homeTypes() {
+    if(this.props.globalState.populateFormsData.homeTypes != undefined) {
+      var { homeTypes } = this.props.globalState.populateFormsData
+
+      return homeTypes.map((item) => {
+        return(
+          <option key={item} value={item}>{item}</option>
+        )
+      })
+    }
+  }
+
+  bedrooms() {
+    if(this.props.globalState.populateFormsData.bedrooms != undefined) {
+      var { bedrooms } = this.props.globalState.populateFormsData
+
+      return bedrooms.map((item) => {
+        return(
+          <option key={item} value={item}>{item}+ BR</option>
+        )
+      })
+    }
   }
   
   render () {
@@ -16,27 +60,17 @@ import React, { Component} from 'react'
         <label htmlFor="city">City</label>
         <select name="city" className="filters city" onChange={this.props.change}>
           <option value="All">Any City</option>
-          <option value="Ridgewood">Ridgewood</option>
-          <option value="Clifton">Clifton</option>
-          <option value="Denver">Denver</option>
-          <option value="Los Angeles">Los Angeles</option>
-          <option value="Miami">Miami</option>
-          <option value="Dallas">Dallas</option>
-          <option value="Austin">Austin</option>
+          {this.cities()}
         </select>
         <label htmlFor="homeType">Home Type</label>
         <select name="homeType" className=" filters homeType" onChange={this.props.change}>
           <option value="All">Any Home Type</option>
-          <option value="Apartment">Apartment</option>
-          <option value="Condo">Condo</option>
-          <option value="Ranch">Ranch</option>
+          {this.homeTypes()}
         </select>
         <label htmlFor="bedrooms">Bed Rooms</label>
         <select name="bedrooms" className="filters bedrooms" onChange={this.props.change}>
           <option value="0">0+ BR</option>
-          <option value="1">1+ BR</option>
-          <option value="2">2+ BR</option>
-          <option value="3">3+ BR</option>
+          {this.bedrooms()}
         </select>
         <div className="filters price">
           <span className="title">Price</span>

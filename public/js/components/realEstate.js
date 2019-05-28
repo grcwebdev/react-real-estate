@@ -27,10 +27,68 @@ var Filter = function (_Component) {
     _this.state = {
       name: 'Joe'
     };
+
+    _this.cities = _this.cities.bind(_this);
+    _this.homeTypes = _this.homeTypes.bind(_this);
+    _this.bedrooms = _this.bedrooms.bind(_this);
     return _this;
   }
 
   _createClass(Filter, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.populateAction();
+    }
+  }, {
+    key: 'cities',
+    value: function cities() {
+      if (this.props.globalState.populateFormsData.cities != undefined) {
+        var cities = this.props.globalState.populateFormsData.cities;
+
+
+        return cities.map(function (item) {
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'option',
+            { key: item, value: item },
+            item
+          );
+        });
+      }
+    }
+  }, {
+    key: 'homeTypes',
+    value: function homeTypes() {
+      if (this.props.globalState.populateFormsData.homeTypes != undefined) {
+        var homeTypes = this.props.globalState.populateFormsData.homeTypes;
+
+
+        return homeTypes.map(function (item) {
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'option',
+            { key: item, value: item },
+            item
+          );
+        });
+      }
+    }
+  }, {
+    key: 'bedrooms',
+    value: function bedrooms() {
+      if (this.props.globalState.populateFormsData.bedrooms != undefined) {
+        var bedrooms = this.props.globalState.populateFormsData.bedrooms;
+
+
+        return bedrooms.map(function (item) {
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'option',
+            { key: item, value: item },
+            item,
+            '+ BR'
+          );
+        });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -57,41 +115,7 @@ var Filter = function (_Component) {
               { value: 'All' },
               'Any City'
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Ridgewood' },
-              'Ridgewood'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Clifton' },
-              'Clifton'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Denver' },
-              'Denver'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Los Angeles' },
-              'Los Angeles'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Miami' },
-              'Miami'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Dallas' },
-              'Dallas'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Austin' },
-              'Austin'
-            )
+            this.cities()
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
@@ -106,21 +130,7 @@ var Filter = function (_Component) {
               { value: 'All' },
               'Any Home Type'
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Apartment' },
-              'Apartment'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Condo' },
-              'Condo'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: 'Ranch' },
-              'Ranch'
-            )
+            this.homeTypes()
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
@@ -135,21 +145,7 @@ var Filter = function (_Component) {
               { value: '0' },
               '0+ BR'
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: '1' },
-              '1+ BR'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: '2' },
-              '2+ BR'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: '3' },
-              '3+ BR'
-            )
+            this.bedrooms()
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -364,6 +360,8 @@ var Listings = function (_Component) {
   _createClass(Listings, [{
     key: 'loopListings',
     value: function loopListings() {
+      var _this2 = this;
+
       var listingsData = this.props.listingsData;
 
 
@@ -372,101 +370,199 @@ var Listings = function (_Component) {
       }
 
       return listingsData.map(function (listing, index) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'listing-col', key: index },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        if (_this2.props.globalState.view == 'grid') {
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'listing' },
+            { className: 'listing-col col-md-3', key: index },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
-              { className: 'listing-img', style: { background: 'url("' + listing.image + '") no-repeat center center' } },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                { className: 'address' },
-                listing.address
-              ),
+              { className: 'listing' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'details' },
+                { className: 'listing-img', style: { background: 'url("' + listing.image + '") no-repeat center center' } },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'div',
-                  { className: 'left-col' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'user-img' })
+                  'span',
+                  { className: 'address' },
+                  listing.address
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
-                  { className: 'right-col' },
+                  { className: 'details' },
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'user-details' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      'span',
-                      { className: 'user-name' },
-                      listing.agent
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      'span',
-                      { className: 'posted-date' },
-                      'Posted on ',
-                      listing.postedDate
-                    )
+                    { className: 'left-col col-md-3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'user-img' })
                   ),
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'listing-details' },
+                    { className: 'right-col col-md-9' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                       'div',
-                      { className: 'floor-space' },
-                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'far fa-square', 'aria-hidden': 'true' }),
+                      { className: 'user-details' },
                       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'span',
-                        null,
-                        listing.floorSpace,
-                        ' ft\xB2'
+                        { className: 'user-name' },
+                        listing.agent
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'posted-date' },
+                        'Posted on ',
+                        listing.postedDate
                       )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                       'div',
-                      { className: 'bedrooms' },
-                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-bed', 'aria-hidden': 'true' }),
+                      { className: 'listing-details' },
                       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'span',
-                        null,
-                        listing.bedrooms,
-                        ' bedrooms'
+                        'div',
+                        { className: 'floor-space' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'far fa-square', 'aria-hidden': 'true' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          'span',
+                          null,
+                          listing.floorSpace,
+                          ' ft\xB2'
+                        )
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'bedrooms' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-bed', 'aria-hidden': 'true' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          'span',
+                          null,
+                          listing.rooms,
+                          ' bedrooms'
+                        )
                       )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      'div',
+                      { className: 'view-btn' },
+                      'View Listing'
                     )
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'view-btn' },
-                    'View Listing'
                   )
                 )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'bottom-info' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                { className: 'price' },
-                '$',
-                listing.price,
-                ' / month'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                { className: 'location' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-map-marker-alt' }),
-                listing.city,
-                ', ',
-                listing.state
+                'div',
+                { className: 'bottom-info' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'span',
+                  { className: 'price' },
+                  '$',
+                  listing.price,
+                  ' / month'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'span',
+                  { className: 'location' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-map-marker-alt' }),
+                  listing.city,
+                  ', ',
+                  listing.state
+                )
               )
             )
-          )
-        );
+          );
+        } else if (_this2.props.globalState.view == 'list') {
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'listing-col col-md-12 col-lg-6', key: index },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'listing' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'listing-img', style: { background: 'url("' + listing.image + '") no-repeat center center' } },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'span',
+                  { className: 'address' },
+                  listing.address
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'details' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'left-col col-md-3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'user-img' })
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'right-col col-md-9' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      'div',
+                      { className: 'user-details' },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'user-name' },
+                        listing.agent
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'posted-date' },
+                        'Posted on ',
+                        listing.postedDate
+                      )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      'div',
+                      { className: 'listing-details' },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'floor-space' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'far fa-square', 'aria-hidden': 'true' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          'span',
+                          null,
+                          listing.floorSpace,
+                          ' ft\xB2'
+                        )
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'bedrooms' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-bed', 'aria-hidden': 'true' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          'span',
+                          null,
+                          listing.rooms,
+                          ' bedrooms'
+                        )
+                      )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      'div',
+                      { className: 'view-btn' },
+                      'View Listing'
+                    )
+                  )
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'bottom-info' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'span',
+                  { className: 'price' },
+                  '$',
+                  listing.price,
+                  ' / month'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'span',
+                  { className: 'location' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-map-marker-alt' }),
+                  listing.city,
+                  ', ',
+                  listing.state
+                )
+              )
+            )
+          );
+        }
       });
     }
   }, {
@@ -478,7 +574,7 @@ var Listings = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'section',
           { className: 'search-area' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'search' })
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'search', onChange: this.props.change })
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'section',
@@ -486,78 +582,87 @@ var Listings = function (_Component) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'results' },
-            '3920 results found'
+            this.props.globalState.filteredData.length,
+            ' result(s) found.'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'sort-options' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'select',
-              { name: 'sortby', className: 'sortby' },
+              { name: 'sortby', className: 'sortby', onChange: this.props.change },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'option',
-                { value: 'highest-price' },
-                'Highest Price'
+                { value: 'price-asc' },
+                'Lowest Price to Highest Price'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'option',
-                { value: 'lowest-price' },
-                'Lowest Price'
+                { value: 'price-dsc' },
+                'High Price to Lowest price'
               )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               { className: 'view' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-th-list', 'aria-hidden': 'true' }),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-th', 'aria-hidden': 'true' })
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-th-list', 'aria-hidden': 'true', onClick: this.props.changeView.bind(null, "list") }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fas fa-th', 'aria-hidden': 'true', onClick: this.props.changeView.bind(null, "grid") })
             )
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'section',
           { className: 'listing-results' },
-          this.loopListings()
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            this.loopListings()
+          )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'section',
           { className: 'pagination' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'ul',
-            { className: 'pages' },
+            'div',
+            { className: 'row' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              'Prev'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              '1'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              { className: 'active' },
-              '2'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              '3'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              '4'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              '5'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              'Next'
+              'ul',
+              { className: 'pages' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                null,
+                'Prev'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                { className: 'active' },
+                '1'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                null,
+                '2'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                null,
+                '3'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                null,
+                '4'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                null,
+                '5'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                null,
+                'Next'
+              )
             )
           )
         )
@@ -580,7 +685,7 @@ var listingsData = [{
     address: '20-34 Grand Ave',
     city: 'Ridgewood',
     state: 'NY',
-    bedrooms: 3,
+    rooms: 3,
     price: 2800,
     floorSpace: 1500,
     agent: 'Anthony Garcia',
@@ -592,7 +697,7 @@ var listingsData = [{
     address: '134 Sylvan Ave',
     city: 'Clifton',
     state: 'NJ',
-    bedrooms: 2,
+    rooms: 2,
     price: 1200,
     floorSpace: 1250,
     agent: 'Giuliana Gonzalez',
@@ -604,7 +709,7 @@ var listingsData = [{
     address: '14 Main St',
     city: 'Denver',
     state: 'CO',
-    bedbedrooms: 2,
+    rooms: 2,
     price: 1400,
     floorSpace: 1000,
     agent: 'Tony Soprano',
@@ -616,7 +721,7 @@ var listingsData = [{
     address: '20-43 Charger Blvd',
     city: 'Los Angeles',
     state: 'CA',
-    bedrooms: 1,
+    rooms: 1,
     price: 1500,
     floorSpace: 750,
     agent: 'Pierce Cole',
@@ -628,7 +733,7 @@ var listingsData = [{
     address: '12 Ocean Dr',
     city: 'Miami',
     state: 'FL',
-    bedrooms: 2,
+    rooms: 2,
     price: 1100,
     floorSpace: 1000,
     agent: 'Tiger Woods',
@@ -640,7 +745,7 @@ var listingsData = [{
     address: '1019 19th St',
     city: 'Dallas',
     state: 'TX',
-    bedrooms: 3,
+    rooms: 3,
     price: 1200,
     floorSpace: 1750,
     agent: 'John Goti',
@@ -652,7 +757,7 @@ var listingsData = [{
     address: '55 Over Ave',
     city: 'Austin',
     state: 'TX',
-    bedrooms: 1,
+    rooms: 1,
     price: 800,
     floorSpace: 1000,
     agent: 'Anthony Garcia',
@@ -681,6 +786,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_listingsData_js__ = __webpack_require__(233);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -708,7 +815,7 @@ var App = function (_Component) {
       listingsData: __WEBPACK_IMPORTED_MODULE_5__data_listingsData_js__["a" /* default */],
       city: 'All',
       homeType: 'All',
-      bedrooms: 0,
+      rooms: 0,
       min_price: 0,
       max_price: 10000,
       min_floor_space: 0,
@@ -719,15 +826,31 @@ var App = function (_Component) {
       seperate_shower: false,
       fireplace: false,
       swimming_pool: false,
-      filteredData: __WEBPACK_IMPORTED_MODULE_5__data_listingsData_js__["a" /* default */]
+      filteredData: __WEBPACK_IMPORTED_MODULE_5__data_listingsData_js__["a" /* default */],
+      populateFormsData: '',
+      sortby: 'price-asc',
+      view: 'grid',
+      search: ''
     };
 
     _this.change = _this.change.bind(_this);
     _this.filteredData = _this.filteredData.bind(_this);
+    _this.populateForms = _this.populateForms.bind(_this);
+    _this.changeView = _this.changeView.bind(_this);
     return _this;
   }
 
   _createClass(App, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var listingsData = this.state.listingsData.sort(function (a, b) {
+        return a.price - b.price;
+      });
+      this.setState({
+        listingsData: listingsData
+      });
+    }
+  }, {
     key: 'change',
     value: function change(event) {
       var _this2 = this;
@@ -736,8 +859,15 @@ var App = function (_Component) {
       var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
       this.setState(_defineProperty({}, name, value), function () {
-        _this2.filteredData();
         console.log(_this2.state);
+        _this2.filteredData();
+      });
+    }
+  }, {
+    key: 'changeView',
+    value: function changeView(viewName) {
+      this.setState({
+        view: viewName
       });
     }
   }, {
@@ -746,7 +876,7 @@ var App = function (_Component) {
       var _this3 = this;
 
       var newData = this.state.listingsData.filter(function (item) {
-        return item.price >= _this3.state.min_price && item.price <= _this3.state.max_price && item.floorSpace >= _this3.state.min_floor_space && item.floorSpace <= _this3.state.max_floor_space && item.bedrooms >= _this3.state.bedrooms;
+        return item.price >= _this3.state.min_price && item.price <= _this3.state.max_price && item.floorSpace >= _this3.state.min_floor_space && item.floorSpace <= _this3.state.max_floor_space && item.rooms >= _this3.state.rooms;
       });
 
       if (this.state.city != "All") {
@@ -761,8 +891,72 @@ var App = function (_Component) {
         });
       }
 
+      if (this.state.sortby == 'price-asc') {
+        newData = newData.sort(function (a, b) {
+          return a.price - b.price;
+        });
+      } else if (this.state.sortby == 'price-dsc') {
+        newData = newData.sort(function (a, b) {
+          return b.price - a.price;
+        });
+      }
+
+      if (this.state.search != '') {
+        newData = newData.filter(function (item) {
+          var city = item.city.toLowerCase();
+          var searchText = _this3.state.search.toLowerCase();
+          var n = city.match(searchText);
+
+          if (n != null) {
+            return true;
+          }
+        });
+      }
+
       this.setState({
         filteredData: newData
+      });
+    }
+  }, {
+    key: 'populateForms',
+    value: function populateForms() {
+      var _this4 = this;
+
+      // city
+      var cities = this.state.listingsData.map(function (item) {
+        return item.city;
+      });
+
+      cities = new Set(cities);
+      cities = [].concat(_toConsumableArray(cities));
+      cities = cities.sort();
+
+      // homeType
+      var homeTypes = this.state.listingsData.map(function (item) {
+        return item.homeType;
+      });
+
+      homeTypes = new Set(homeTypes);
+      homeTypes = [].concat(_toConsumableArray(homeTypes));
+      homeTypes = homeTypes.sort();
+
+      // bedrooms
+      var bedrooms = this.state.listingsData.map(function (item) {
+        return item.rooms;
+      });
+
+      bedrooms = new Set(bedrooms);
+      bedrooms = [].concat(_toConsumableArray(bedrooms));
+      bedrooms = bedrooms.sort();
+
+      this.setState({
+        populateFormsData: {
+          cities: cities,
+          homeTypes: homeTypes,
+          bedrooms: bedrooms
+        }
+      }, function () {
+        console.log(_this4.state);
       });
     }
   }, {
@@ -775,8 +969,8 @@ var App = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'section',
           { id: 'content-area' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Filter_js__["a" /* default */], { change: this.change, globalState: this.state }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Listings_js__["a" /* default */], { listingsData: this.state.filteredData })
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Filter_js__["a" /* default */], { change: this.change, globalState: this.state, populateAction: this.populateForms }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Listings_js__["a" /* default */], { listingsData: this.state.filteredData, change: this.change, globalState: this.state, changeView: this.changeView })
         )
       );
     }

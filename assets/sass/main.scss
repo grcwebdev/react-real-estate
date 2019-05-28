@@ -1,6 +1,6 @@
 @import url( 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
-@import "variables";
 @import "reset";
+@import "variables";
 
 *,
 body,
@@ -11,3 +11,4 @@ html {
 
 @import "listings";
 @import "content-area";
+@import "grid";
